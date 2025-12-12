@@ -1,6 +1,14 @@
-import { imageData } from "./imageData.js";
+/* Usage:
+<image-gallery data-images="./someFile.json"></image-gallery>
+<image-gallery format="inline || block || ordered || unordered" width="thumbnail width" height="thumbnail height">
+<img alt="alt text" description="long description which may contain HTML">
+...
+</image-gallery>
+*/
 
+let dialogCount = 0;
 class ImageGallery extends HTMLElement {
+#popoverId = `image-gallery-image-display-${++dialogCount}`;
 
 constructor () {
 super();
@@ -18,16 +26,21 @@ this.appendChild(thumbnails);
 <div class="image" aria-hidden="true"><img src="" alt=""></div>
 <div class="long-description"></div>
 `);
-imageDisplay.id = "image-display";
+imageDisplay.id = this.#popoverId;
 imageDisplay.popover = "auto";
 this.appendChild(imageDisplay);
 imageDisplay.addEventListener("beforetoggle", updateImageDisplay);
 
+if (this.dataset.images) {
 import(this.dataset.images, {with: {type: "json"}})
 .then (imageData => {
-debugger;
-createThumbnails (imageData.default, thumbnails)
+createThumbnails (imageData.default, thumbnails, this.#popoverId)
 });
+
+
+}else {
+wrapThumbnails([...this.children].filter(element => element.matches("img")), thumbnails, this.#popoverId);
+} // if
 } // connectedCallback
 
   connectedMoveCallback() {
@@ -37,18 +50,33 @@ createThumbnails (imageData.default, thumbnails)
 
 customElements.define("image-gallery", ImageGallery);
 
-function createThumbnails (imageData, gallery) {
+function createThumbnails (imageData, gallery, id) {
 for (const data of imageData) {
 gallery.insertAdjacentHTML("beforeEnd", `
-<li><button popoverTarget="image-display" popoverAction="show">
+<li><button popoverTarget="${id}" popoverAction="show">
 <img
-alt="${data.alt || "decorative"}"
-src="${data.url? data.url : data/path}"
+alt="${data.alt.trim() || "decorative"}"
+src="${data.url.trim()? data.url : data.path}"
 data-description="${data.description}"
 ></button></li>
 `);
 } // for
-} // importImageData
+} // createThumbnails
+
+function wrapThumbnails (images, thumbnails, id) {
+for (const img of images) {
+const li = document.createElement("li");
+const button = document.createElement("button");
+button.setAttribute("popovertarget",  id);
+button.setAttribute("popoveraction", "show");
+
+thumbnails.appendChild(li);
+li.appendChild(button);
+//img.replaceWith(li);
+button.appendChild(img);
+} // for
+
+} // wrapThumbnails
 
 function updateImageDisplay (e) {
 console.log("before popup ", e.target, e);
