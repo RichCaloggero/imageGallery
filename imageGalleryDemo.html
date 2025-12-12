@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Test</title>
+<style>
+#image-display .image {
+float: left;
+}
+
+#image-display .longDescription {
+float: right;
+}
+
+#image-display::backdrop { /* style the backdrop behind dialog when opened */
+}
+
+#image-display:open { /* style dialog when it is visible */
+
+}
+
+#image-display .description { /* style the long description */
+}
+
+#image-display .image { /* style the fullsize image */ 
+
+}
+
+
+.image-gallery { /* style the list of thumbnails (there are properties you can use to make it look like a grid) */
+list-style: none;
+column-count: 3;
+}
+
+.image-gallery img { /* style the thumbnails themselves */
+width: 20px;
+height: 13.48px;
+}
+
+.image-gallery button { /* and the buttons */
+}
+</style>
+
+</head>
+<body>
+<h1>Test</h1>
+
+<ul class="image-gallery"><li>
+<button popoverTarget="image-display" popoverAction="show">
+<img alt="Site overview"  src="https://ocw.mit.edu/courses/12-114-field-geology-i-fall-2005/b899ef9ba2b7e809c93c929e0c88dd8b_lec1photo1.jpg" data-description="
+<p>We do our field work in the southwest United States in January. It is true that there is snow in the high mountains in the desert at that time but we will not work that high. We try to work in snow-free regions. There is a lot of walking. As the regions we are mapping are often not accessible by car, we will walk in and out each day so it is important to be in good shape.
+</p>">
+</button>
+
+</li><li>
+<button popoverTarget="image-display" popoverAction="show">
+<img alt="Camp setup"  src="https://ocw.mit.edu/courses/12-114-field-geology-i-fall-2005/5ac87135220dc49668e1d66b481ea651_lec1photo2.jpg" data-description="
+<p>This is an image of the camp set-up. There is a cook tent in the background. Inside are stoves, tables, food storage and lanterns for the evenings. We wash our own dishes and you can see them drying on the table. There is also a cooler for our veggies and drinks. As we are at a remote location in the desert, water is scarce. The red water cooler is for drinking during the day, but to be conserved when washing. There will be three showers during IAP or about once a week or 10 days. There will be mapping groups that will also have roles in the kitchen. These will alternate day-to-day, but each group will have responsibilities to help in food preparation and in washing kitchen dishes.
+</p>">
+</button>
+
+</li><li>
+<button popoverTarget="image-display" popoverAction="show">
+<img alt="map tent"  src="https://ocw.mit.edu/courses/12-114-field-geology-i-fall-2005/cfae833c082c87017c120fcaff26d078_lec1photo3.jpg" data-description="
+<p>This is the map tent where we store the computers and the mapping equipment. It is where we will eat if the weather is bad but most of the time we will use this tent for doing the digital mapping work at night. We have generators and batteries for electricity but will use gas lanterns for light. These tents are high quality arctic tents and have served us well. We purchased them with gracious support from the Kaplan Foundation. There is a lot of wind in the desert, especially at night and, our old tents were knocked over frequently.
+</p>">
+</button>
+</li></ul>
+
+<dialog popover id="image-display">
+<div><button autofocus popoverTarget="image-display" popoverAction="hide">Close</button></div>
+<div aria-hidden="true"><img class="image" src="" alt=""></div>
+<div class="long-description"></div>
+</dialog>
+
+<script>
+const imageGallery = document.querySelector(".image-gallery");
+const imageDisplay = document.querySelector("#image-display");
+imageGallery.addEventListener("click", e => console.log("clicked ", e.target));
+
+imageDisplay.addEventListener("beforetoggle", e => {
+console.log("before popup ", e.target, e);
+const thumbnail = e.source.querySelector("img");
+const descriptionText = thumbnail.dataset.description;
+
+const longDescription = e.target.querySelector(".long-description");
+const image = e.target.querySelector(".image");
+
+image.src = thumbnail.src;
+longDescription.innerHTML = descriptionText;
+});
+
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Image Gallery Demo</title>
+<script type="module" src="imageGallery.js"></script>
+
+<style>
+#image-display .image {
+float: left;
+}
+
+#image-display .longDescription {
+float: right;
+}
+
+#image-display::backdrop { /* style the backdrop behind dialog when opened */
+}
+
+#image-display:open { /* style dialog when it is visible */
+
+}
+
+#image-display .description { /* style the long description */
+}
+
+#image-display .image { /* style the fullsize image */ 
+
+}
+
+
+.image-gallery { /* style the list of thumbnails (there are properties you can use to make it look like a grid) */
+list-style: none;
+column-count: 3;
+}
+
+.image-gallery img { /* style the thumbnails themselves */
+width: 20px;
+height: 13.48px;
+}
+
+.image-gallery button { /* and the buttons */
+}
+</style>
+
+</head>
+<body>
+<h1>Image Gallery Demo</h1>
+
+<ul class="image-gallery"></ul>
+
+
+</body>
+</html>

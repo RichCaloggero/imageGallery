@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Test</title>
+
+</head>
+<body>
+<h1>Test</h1>
+
+<x-t></x-t>
+
+<script >
+class Xt extends HTMLElement {
+constructor () {
+super ();
+} // constructor
+
+connectedCallback () {
+let thumbnails, hello;
+
+(thumbnails = document.createElement("ul"))
+.insertAdjacentHTML("beforeEnd", `
+<li><button popoverTarget="hello" popoverAction="show">say hello</button>
+</li>
+`);
+this.appendChild(thumbnails);
+
+(hello = document.createElement("dialog"))
+.insertAdjacentHTML("beforeEnd", `
+<p class="left">Hello from a popover. This should float to the left side of the dialog, that is if I understand how CSS float actually works, which is debatable.</p>
+<p class="right">This should float to the right side of the dialog, again if I understand how CSS float actually works.</p>
+`);
+
+hello.id = "hello";
+hello.popover = "auto";
+hello.className = "image-display";
+this.appendChild(hello);
+} // connectedCallback
+} // class Xt
+
+customElements.define("x-t", Xt);
+</script>
+
+</body>
+</html>
