@@ -17,7 +17,9 @@ super();
 connectedCallback () {
 let thumbnails, imageDisplay;
 
+
 (thumbnails = document.createElement("ul"));
+thumbnails.className = "thumbnails";
 this.appendChild(thumbnails);
 
 (imageDisplay = document.createElement("dialog"))
@@ -28,6 +30,7 @@ this.appendChild(thumbnails);
 `);
 imageDisplay.id = this.#popoverId;
 imageDisplay.popover = "auto";
+imageDisplay.className = "image-display";
 this.appendChild(imageDisplay);
 imageDisplay.addEventListener("beforetoggle", updateImageDisplay);
 
