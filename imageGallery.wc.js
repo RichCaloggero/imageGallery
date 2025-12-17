@@ -6,6 +6,43 @@
 </image-gallery>
 */
 
+const cssText = `@scope {
+
+.thumbnails { /* style the list of thumbnails (there are properties you can use to make it look like a grid) */
+list-style: none;
+column-count: 3;
+
+img { /* style the thumbnails themselves */
+width: 20px;
+height: 13.48px;
+}
+
+button { /* and the buttons */
+}
+} /* .thumbnails */
+
+dialog {
+.image {
+float: left;
+width: 50%;
+}
+
+.long-description {
+float: right;
+width: 50%;
+}
+} /* dialog*/
+
+dialog::backdrop { /* style the backdrop behind dialog when opened */
+}
+
+dialog:open { /* style dialog when it is visible */
+}
+} /* @scope */
+`;
+
+
+
 let dialogCount = 0;
 class ImageGallery extends HTMLElement {
 #popoverId = `image-gallery-image-display-${++dialogCount}`;
@@ -15,8 +52,11 @@ super();
 } // constructor
 
 connectedCallback () {
-let thumbnails, imageDisplay;
+let thumbnails, imageDisplay, style;
 
+(style = document.createElement("style"))
+.textContent = cssText;
+this.insertAdjacentElement("afterBegin", style);
 
 (thumbnails = document.createElement("ul"));
 thumbnails.className = "thumbnails";
@@ -40,10 +80,10 @@ import(this.dataset.images, {with: {type: "json"}})
 createThumbnails (imageData.default, thumbnails, this.#popoverId)
 });
 
-
 }else {
 wrapThumbnails([...this.children].filter(element => element.matches("img")), thumbnails, this.#popoverId);
 } // if
+
 } // connectedCallback
 
   connectedMoveCallback() {
