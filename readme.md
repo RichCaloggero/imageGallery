@@ -4,7 +4,6 @@ This is a simple custom element that produces an accessible image gallery from e
 
 ## Usage
 
-### As web component
 
 In the `head` add a script element:
    
@@ -28,11 +27,12 @@ or
 ```
 
 
-#### Styling
+## Styling
 
 The component loads it's own default styles, but they are easily overridden via inline styles via style attribute, linked stylesheet, or inline stylesheet in the head.
 
-Here is the default stylesheet for reference.
+Here is the default stylesheet for reference. Note that in the component, we use `@scope`, but if overriding you can use the element name or `@scope (image-gallery)`.
+
 
 ```
 image-gallery {
@@ -71,26 +71,3 @@ dialog:open { /* style dialog when it is visible */
 } /* image-gallery */
 ```
 
-
-### As normal script
-
-In the head, load the library:
-
-`<script src="./imageGallery.js"></script>
-
-In the body, use either of these two form:
-
-```
-<div class="image-gallery" data-images="./imageData.json"></image-gallery>
-```
-
-or
-
-```
-<div class="image-gallery">
-<img width="20px" height="26px" src="..." data-description="html markup here...">
-...
-</div>
-```
-
-__Note: if testing without a web server, only the inline form will work since `fetch` is not supported when using "file:" URLs.__
