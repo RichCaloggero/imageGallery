@@ -2,23 +2,28 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Image Gallery Component</title>
+<title>Image Gallery test</title>
 
-<script src="imageGallery.js"></script>
-<script type="module" src="imageGallery.wc.js"></script>
+
 
 </head>
 <body>
-<h1>Image Gallery Component Demo</h1>
+<h1>Image Gallery test</h1>
 
 <!-- use with separate json data file... -->
-<image-gallery data-src="./imageData.json"></image-gallery>
+<div class="image-gallery" data-src="./imageData.json"></div>
 
 <!-- use with inline images; list with buttons is constructed by the component on the fly -->
-<image-gallery>
+<div class="image-gallery">
 <img width="20px" height="26px" src="https://web.mit.edu/12.114/05_fall/www/images/2005.09.19_bevertail/pix_IMG_0808.jpg" alt="photo" data-description="<p>I have no idea what this is...</p>">
 <img width="20" height="26" src="https://web.mit.edu/12.114/05_fall/www/images/2005.09.19_bevertail/pix_IMG_08061.jpg" alt="another photo" data-description="<p>another unknown something...</p>">
 </image-gallery>
+
+<script src="imageGallery.js"></script>
+<script >
+document.querySelectorAll(".image-gallery").forEach(x => connect(x, document));
+console.log(`not inside web component; ${document.querySelectorAll(".image-gallery").length} .image-gallery elements found.`);
+</script>
 
 </body>
 </html>
