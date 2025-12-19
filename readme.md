@@ -4,11 +4,15 @@ This is a simple custom element that produces an accessible image gallery from e
 
 ## Usage
 
-### in the `head` add a script element:
-   
->`<script type="module" src="imageGallery.wc.js"></script>`
+### As web component
 
-### in the body use either of these two forms:
+In the `head` add a script element:
+   
+```
+<script type="module" src="imageGallery.wc.js"></script>
+```
+
+In the body use either of these two forms:
    
 ```
 <image-gallery data-images="./imageData.json"></image-gallery>
@@ -23,7 +27,8 @@ or
 </image-gallery>
 ```
 
-## Styling
+
+#### Styling
 
 The component loads it's own default styles, but they are easily overridden via inline styles via style attribute, linked stylesheet, or inline stylesheet in the head.
 
@@ -67,3 +72,25 @@ dialog:open { /* style dialog when it is visible */
 ```
 
 
+### As normal script
+
+In the head, load the library:
+
+`<script src="./imageGallery.js"></script>
+
+In the body, use either of these two form:
+
+```
+<div class="image-gallery" data-images="./imageData.json"></image-gallery>
+```
+
+or
+
+```
+<div class="image-gallery">
+<img width="20px" height="26px" src="..." data-description="html markup here...">
+...
+</div>
+```
+
+__Note: if testing without a web server, only the inline form will work since `fetch` is not supported when using "file:" URLs.__
